@@ -139,7 +139,7 @@ func deleteBookById(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book Deleted successfully."})
 }
 
-func main() {
+func Start() {
 	router := gin.Default()
 	router.GET("/books", getBooks)
 	router.GET("/books/:id", bookById)
