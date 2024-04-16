@@ -1,4 +1,4 @@
-module Book_API_Server
+module github.com/Rudro-25/Book_API_Server
 
 go 1.22
 

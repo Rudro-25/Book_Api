@@ -1,32 +1,21 @@
-package api
+package apiHandler
 
 import (
 	"errors"
+	"github.com/Rudro-25/Book_API_Server/dataHandler"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
 func getBooks(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, books)
+	c.IndentedJSON(http.StatusOK, dataHandler.Books)
 }
 
-func bookById(c *gin.Context) {
-	id := c.Param("id")
-	book, err := getBookById(id)
-
-	if err != nil {
-		c.IndentedJSON(http.StatusNoContent, gin.H{"message": "Book not found."})
-		return
-	}
-
-	c.IndentedJSON(http.StatusOK, book)
-}
-
-func getBookById(id string) (*book, error) {
-	for i, b := range books {
+func getBookById(id string) (*dataHandler.Book, error) {
+	for i, b := range dataHandler.Books {
 		if b.ID == id {
-			return &books[i], nil
+			return &dataHandler.Books[i], nil
 		}
 	}
 
@@ -81,13 +70,13 @@ func returnBook(c *gin.Context) {
 }
 
 func createBook(c *gin.Context) {
-	var newBook book
+	var newBook dataHandler.Book
 
 	if err := c.BindJSON(&newBook); err != nil {
 		return
 	}
 
-	books = append(books, newBook)
+	dataHandler.Books = append(dataHandler.Books, newBook)
 	c.IndentedJSON(http.StatusCreated, newBook)
 }
 
@@ -96,7 +85,7 @@ func updateBookById(c *gin.Context) {
 
 	var ind int = -1
 
-	for i, b := range books {
+	for i, b := range dataHandler.Books {
 		if b.ID == id {
 			ind = i
 			break
@@ -108,7 +97,7 @@ func updateBookById(c *gin.Context) {
 		return
 	}
 
-	var updatedBook book
+	var updatedBook dataHandler.Book
 	err := c.BindJSON(&updatedBook)
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Invalid request body."})
@@ -116,16 +105,16 @@ func updateBookById(c *gin.Context) {
 	}
 
 	if updatedBook.Title != "" {
-		books[ind].Title = updatedBook.Title
+		dataHandler.Books[ind].Title = updatedBook.Title
 	}
 	if updatedBook.Author != "" {
-		books[ind].Author = updatedBook.Author
+		dataHandler.Books[ind].Author = updatedBook.Author
 	}
 	if updatedBook.Quantity != 0 {
-		books[ind].Quantity = updatedBook.Quantity
+		dataHandler.Books[ind].Quantity = updatedBook.Quantity
 	}
 
-	c.IndentedJSON(http.StatusOK, books[ind])
+	c.IndentedJSON(http.StatusOK, dataHandler.Books[ind])
 }
 
 func deleteBookById(c *gin.Context) {
@@ -133,7 +122,7 @@ func deleteBookById(c *gin.Context) {
 
 	var ind int = -1
 
-	for i, b := range books {
+	for i, b := range dataHandler.Books {
 		if b.ID == id {
 			ind = i
 			break
@@ -145,7 +134,7 @@ func deleteBookById(c *gin.Context) {
 		return
 	}
 
-	books = append(books[:ind], books[ind+1:]...)
+	dataHandler.Books = append(dataHandler.Books[:ind], dataHandler.Books[ind+1:]...)
 
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book Deleted successfully."})
 }

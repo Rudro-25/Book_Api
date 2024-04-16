@@ -1,7 +1,6 @@
-package api
+package apiHandler
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -16,14 +15,4 @@ func bookById(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, book)
-}
-
-func getBookById(id string) (*book, error) {
-	for i, b := range books {
-		if b.ID == id {
-			return &books[i], nil
-		}
-	}
-
-	return nil, errors.New("book not found")
 }
