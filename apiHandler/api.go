@@ -8,11 +8,11 @@ import (
 	"strconv"
 )
 
-func getBooks(c *gin.Context) {
+func GetBooks(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, dataHandler.Books)
 }
 
-func getBookById(id string) (*dataHandler.Book, error) {
+func GetBookById(id string) (*dataHandler.Book, error) {
 	for i, b := range dataHandler.Books {
 		if b.ID == id {
 			return &dataHandler.Books[i], nil
@@ -22,7 +22,7 @@ func getBookById(id string) (*dataHandler.Book, error) {
 	return nil, errors.New("book not found")
 }
 
-func checkoutBook(c *gin.Context) {
+func CheckoutBook(c *gin.Context) {
 	cnt, err := strconv.Atoi(c.Param("cnt"))
 
 	id, ok := c.GetQuery("id")
@@ -32,7 +32,7 @@ func checkoutBook(c *gin.Context) {
 		return
 	}
 
-	book, err := getBookById(id)
+	book, err := GetBookById(id)
 
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book not Found."})
@@ -48,7 +48,7 @@ func checkoutBook(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, book)
 }
 
-func returnBook(c *gin.Context) {
+func ReturnBook(c *gin.Context) {
 	cnt, err := strconv.Atoi(c.Param("cnt"))
 
 	id, ok := c.GetQuery("id")
@@ -58,7 +58,7 @@ func returnBook(c *gin.Context) {
 		return
 	}
 
-	book, err := getBookById(id)
+	book, err := GetBookById(id)
 
 	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book not Found."})
@@ -69,7 +69,7 @@ func returnBook(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, book)
 }
 
-func createBook(c *gin.Context) {
+func CreateBook(c *gin.Context) {
 	var newBook dataHandler.Book
 
 	if err := c.BindJSON(&newBook); err != nil {
@@ -80,7 +80,7 @@ func createBook(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newBook)
 }
 
-func updateBookById(c *gin.Context) {
+func UpdateBookById(c *gin.Context) {
 	id := c.Param("id")
 
 	var ind int = -1
@@ -117,7 +117,7 @@ func updateBookById(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, dataHandler.Books[ind])
 }
 
-func deleteBookById(c *gin.Context) {
+func DeleteBookById(c *gin.Context) {
 	id := c.Param("id")
 
 	var ind int = -1
@@ -139,17 +139,22 @@ func deleteBookById(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book Deleted successfully."})
 }
 
-func Start() {
-	router := gin.Default()
-	router.GET("/books", getBooks)
-	router.GET("/books/:id", bookById)
-	router.POST("/books", createBook)
-	router.PATCH("/checkout/:cnt", checkoutBook)
-	router.PATCH("/return/:cnt", returnBook)
-	router.PATCH("/books/:id", updateBookById)
-	router.DELETE("/books/:id", deleteBookById)
-	router.Run("localhost:8080")
-}
+//func Start() {
+//	router := gin.Default()
+//
+//	router.POST("/login", login)
+//	//http.HandleFunc("/home", Home)
+//	//http.HandleFunc("/refresh", Refresh)
+//
+//	router.GET("/books", getBooks)
+//	router.GET("/books/:id", bookById)
+//	router.POST("/books", createBook)
+//	router.PATCH("/checkout/:cnt", checkoutBook)
+//	router.PATCH("/return/:cnt", returnBook)
+//	router.PATCH("/books/:id", updateBookById)
+//	router.DELETE("/books/:id", deleteBookById)
+//	router.Run("localhost:8080")
+//}
 
 //go run main.go
 //Get all book list

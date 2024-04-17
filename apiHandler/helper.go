@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func bookById(c *gin.Context) {
+func BookById(c *gin.Context) {
 	id := c.Param("id")
-	book, err := getBookById(id)
+	book, err := GetBookById(id)
 
 	if err != nil {
 		c.IndentedJSON(http.StatusNoContent, gin.H{"message": "Book not found."})
