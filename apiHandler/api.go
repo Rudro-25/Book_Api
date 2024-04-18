@@ -2,8 +2,11 @@ package apiHandler
 
 import (
 	"errors"
+	"fmt"
+	"github.com/Rudro-25/Book_API_Server/authHandler"
 	"github.com/Rudro-25/Book_API_Server/dataHandler"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -148,4 +151,23 @@ func AddUser(c *gin.Context) {
 
 	dataHandler.Users = append(dataHandler.Users, newUser)
 	c.IndentedJSON(http.StatusCreated, newUser)
+}
+
+func Start(Port int) {
+	router := gin.Default()
+
+	router.POST("/login", authHandler.LoginHandler)
+	router.POST("/adduser", AddUser)
+
+	router.GET("/books", GetBooks)
+	router.GET("/books/:id", BookById)
+	router.POST("/books", CreateBook)
+	router.PATCH("/checkout/:cnt", CheckoutBook)
+	router.PATCH("/return/:cnt", ReturnBook)
+	router.PATCH("/books/:id", UpdateBookById)
+	router.DELETE("/books/:id", DeleteBookById)
+	err := router.Run(fmt.Sprintf("localhost:%v", Port))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
