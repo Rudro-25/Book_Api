@@ -1,7 +1,7 @@
 package authHandler
 
 import (
-	"github.com/Rudro-25/Book_API_Server/dataHandler"
+	"github.com/Rudro-25/book_api_server/dataHandler"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

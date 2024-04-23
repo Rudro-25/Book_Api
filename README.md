@@ -1,15 +1,21 @@
-#api-server
+# book-api-server
  - Simple CRUD API Server with Golang
 
-#Technogy-used
+# Technogy-used
 - Golang (Gin Framework)
+- JWT Auth
+- Cobra Cli
 
-#Running the server
-- git clone https://github.com/Rudro-25/Book_Api.git
+# Running the server
+- `git clone https://github.com/Rudro-25/Book_Api.git`   
 
+From `book-api-server` directory:
+- ` go mod tidy & go mod vector`
+- `go run . start or go run . -p <port>`
 
-- go run main.go
-
+# Running the server from docker image
+- `docker pull rudro25/book-api-server`
+- `docker run -dp <port>8080 rudro25/book-api-server`
 
 #Api-Calls
 
