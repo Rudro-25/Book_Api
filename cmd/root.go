@@ -11,8 +11,8 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "Book_API_Server",
-	Short: "Book Api Server",
+	Use:   "book_api_server",
+	Short: "book_api_server",
 	Long:  `A Api server where we can store book details with author. Also authenticate the user.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:

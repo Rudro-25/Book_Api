@@ -4,7 +4,7 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"github.com/Rudro-25/Book_API_Server/apiHandler"
+	"github.com/Rudro-25/book_api_server/apiHandler"
 	"github.com/spf13/cobra"
 )
 

@@ -3,8 +3,8 @@ package apiHandler
 import (
 	"errors"
 	"fmt"
-	"github.com/Rudro-25/Book_API_Server/authHandler"
-	"github.com/Rudro-25/Book_API_Server/dataHandler"
+	"github.com/Rudro-25/book_api_server/authHandler"
+	"github.com/Rudro-25/book_api_server/dataHandler"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -166,7 +166,7 @@ func Start(Port int) {
 	router.PATCH("/return/:cnt", ReturnBook)
 	router.PATCH("/books/:id", UpdateBookById)
 	router.DELETE("/books/:id", DeleteBookById)
-	err := router.Run(fmt.Sprintf("localhost:%v", Port))
+	err := router.Run(fmt.Sprintf(":%v", Port))
 	if err != nil {
 		log.Fatal(err)
 	}
