@@ -34,3 +34,12 @@ From `book-api-server` directory:
 
 
 
+# Deployment and Service
+
+- `kubectl port-forward pod/<pod_name> 8080:8080`
+- `kubectl port-forward svc/<service_name> 4025:3200`
+ 
+Check: 
+
+- `http://localhost:8080/books`
+- `http://localhost:4025/books`
